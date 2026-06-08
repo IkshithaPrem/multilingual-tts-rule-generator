@@ -43,9 +43,10 @@ class NormalizationRuleGenerator:
 
     def _build_steps(self, rule_type: str, subcat_data: Dict, language_data: Dict):
         """Build normalization steps for a given rule type."""
+        mappings = language_data.get("mappings", {})
 
         if rule_type == "digit_by_digit":
-            pron_map = subcat_data.get("pronunciation_map", {})
+            pron_map = mappings.get("digits", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "SPLIT_DIGITS", "description": "Split input into individual digits"},
@@ -61,7 +62,7 @@ class NormalizationRuleGenerator:
             return steps, "{digit1} {digit2} ... {digitN}", "digit_by_digit"
 
         elif rule_type == "cardinal":
-            scale_words = subcat_data.get("scale_words_roman") or subcat_data.get("scale_words", {})
+            scale_words = mappings.get("cardinal", {}).get("scale_words", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "PARSE_NUMBER", "description": "Parse integer value"},
@@ -76,7 +77,7 @@ class NormalizationRuleGenerator:
             return steps, "spoken cardinal number", "cardinal"
 
         elif rule_type == "ordinal":
-            suffix_map = subcat_data.get("suffix_map", {})
+            suffix_map = mappings.get("ordinal", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "EXTRACT_BASE_NUMBER",
@@ -90,7 +91,7 @@ class NormalizationRuleGenerator:
             return steps, "ordinal spoken word (first, second...)", "ordinal"
 
         elif rule_type == "fraction":
-            frac_words = subcat_data.get("fraction_words_roman") or subcat_data.get("fraction_words", {})
+            frac_words = mappings.get("fraction", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "SPLIT_ON_SLASH",
@@ -117,7 +118,7 @@ class NormalizationRuleGenerator:
             return steps, "N and F (e.g., five and nine halves)", "fraction"
 
         elif rule_type == "date":
-            month_map = subcat_data.get("month_map", {})
+            month_map = mappings.get("month", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "DETECT_FORMAT",
@@ -162,7 +163,7 @@ class NormalizationRuleGenerator:
             return steps, "spoken time (e.g., 'twelve thirty PM')", "time"
 
         elif rule_type in ("spell_out", "acronym"):
-            alpha_map = subcat_data.get("alphabet_map", {})
+            alpha_map = mappings.get("alphabet", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "SPLIT_INTO_LETTERS",
@@ -178,7 +179,7 @@ class NormalizationRuleGenerator:
             return steps, "spelled out letters (e.g., 'ay bee see')", "spell_out"
 
         elif rule_type == "prefix_expand":
-            prefix_map = subcat_data.get("prefix_map", {})
+            prefix_map = mappings.get("prefix", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "STRIP_DOT", "description": "Remove trailing dot if present"},
@@ -191,7 +192,7 @@ class NormalizationRuleGenerator:
             return steps, "expanded prefix (e.g., Mr -> Mister)", "default"
 
         elif rule_type in ("unit_with_plural", "length_unit", "weight_unit", "time_unit"):
-            unit_map = subcat_data.get("unit_map", {})
+            unit_map = mappings.get("unit", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "EXTRACT_NUMBER_AND_UNIT",
@@ -209,7 +210,7 @@ class NormalizationRuleGenerator:
             return steps, "number with unit (e.g., 'ten feet', '5 kilograms')", "unit"
 
         elif rule_type == "currency":
-            currency_map = subcat_data.get("currency_map", {})
+            currency_map = mappings.get("currency", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "EXTRACT_SYMBOL_AND_AMOUNT",
@@ -225,7 +226,7 @@ class NormalizationRuleGenerator:
             return steps, "spoken currency (e.g., 'ten dollars and fifty cents')", "default"
 
         elif rule_type == "roman_to_cardinal":
-            roman_map = subcat_data.get("roman_map", {})
+            roman_map = mappings.get("roman", {})
             steps = [
                 {"step": 1, "action": "MATCH_PATTERN", "pattern": subcat_data.get("dfa_pattern", "")},
                 {"step": 2, "action": "VALIDATE_ROMAN",
