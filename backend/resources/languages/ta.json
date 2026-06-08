@@ -1,0 +1,56 @@
+{
+  "language": "ta",
+  "language_name": "Tamil",
+  "categories": {
+    "NUMBER": {
+      "subcategories": {
+        "cardinal_digit": {
+          "description": "Spell each digit separately in Tamil",
+          "examples": ["12345 as onru irandu moondru naangu ainthu"],
+          "pronunciation_map": {
+            "0": "சுழியம்", "1": "ஒன்று", "2": "இரண்டு", "3": "மூன்று", "4": "நான்கு",
+            "5": "ஐந்து", "6": "ஆறு", "7": "ஏழு", "8": "எட்டு", "9": "ஒன்பது"
+          },
+          "pronunciation_map_roman": {
+            "0": "suzhiyam", "1": "ondru", "2": "irandu", "3": "moondru", "4": "naangu",
+            "5": "ainthu", "6": "aaru", "7": "ezhu", "8": "ettu", "9": "onbathu"
+          },
+          "dfa_pattern": "^[0-9]{5,}$",
+          "rule_type": "digit_by_digit"
+        },
+        "cardinal_million_billion": {
+          "description": "Cardinal numbers in Tamil scale",
+          "examples": ["100 as nooru"],
+          "scale_words": {
+            "100": "நூறு", "1000": "ஆயிரம்", "100000": "லட்சம்",
+            "10000000": "கோடி"
+          },
+          "scale_words_roman": {
+            "100": "nooru", "1000": "aayiram", "100000": "latcham",
+            "10000000": "kodi"
+          },
+          "dfa_pattern": "^[0-9]{2,10}$",
+          "rule_type": "cardinal"
+        }
+      }
+    },
+    "UNIT": {
+      "subcategories": {
+        "currency": {
+          "description": "Currency in Tamil",
+          "examples": ["100 rupees as nooru roobai"],
+          "currency_map": {
+            "₹": "ரூபாய்", "INR": "இந்திய ரூபாய்", "Rs": "ரூபாய்"
+          },
+          "dfa_pattern": "^[₹][0-9]+(\\.[0-9]{1,2})?$|^[0-9]+\\s*rupees?$",
+          "rule_type": "currency"
+        }
+      }
+    }
+  },
+  "ssml_templates": {
+    "default": "<speak>{text}</speak>",
+    "digit_by_digit": "<speak><say-as interpret-as='characters'>{text}</say-as></speak>",
+    "cardinal": "<speak><say-as interpret-as='cardinal'>{text}</say-as></speak>"
+  }
+}

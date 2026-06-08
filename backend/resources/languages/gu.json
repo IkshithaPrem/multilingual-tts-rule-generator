@@ -1,0 +1,195 @@
+{
+  "language": "gu",
+  "language_name": "Gujarati",
+  "categories": {
+    "NUMBER": {
+      "subcategories": {
+        "cardinal_digit": {
+          "description": "Spell each digit separately (Gujarati style)",
+          "examples": ["12345"],
+          "pronunciation_map": {
+            "0": "શૂન્ય", "1": "એક", "2": "બે", "3": "ત્રણ", "4": "ચાર",
+            "5": "પાંચ", "6": "છ", "7": "સાત", "8": "આઠ", "9": "નવ"
+          },
+          "pronunciation_map_roman": {
+            "0": "shunya", "1": "ek", "2": "be", "3": "tran", "4": "char",
+            "5": "panch", "6": "chha", "7": "saat", "8": "aath", "9": "nav"
+          },
+          "dfa_pattern": "^[0-9]{5,}$|^[૦-૯]+$",
+          "rule_type": "digit_by_digit"
+        },
+        "cardinal_million_billion": {
+          "description": "Cardinal numbers in Gujarati scale",
+          "examples": ["25", "500", "1000", "100000"],
+          "scale_words": {
+            "100": "સો", "1000": "હજાર", "100000": "લાખ",
+            "10000000": "કરોડ", "1000000000": "અબજ"
+          },
+          "scale_words_roman": {
+            "100": "so", "1000": "hazar", "100000": "lakh",
+            "10000000": "crore", "1000000000": "abaj"
+          },
+          "dfa_pattern": "^[0-9]{2,10}$",
+          "rule_type": "cardinal"
+        },
+        "gujarati_local_number": {
+          "description": "Gujarati native numerals",
+          "examples": ["૦", "૧", "૨", "૩"],
+          "numeral_map": {
+            "૦": "0", "૧": "1", "૨": "2", "૩": "3", "૪": "4",
+            "૫": "5", "૬": "6", "૭": "7", "૮": "8", "૯": "9"
+          },
+          "dfa_pattern": "^[૦-૯]+$",
+          "rule_type": "gujarati_numeral"
+        },
+        "ordinal": {
+          "description": "Ordinal numbers in Gujarati",
+          "examples": ["1st", "2nd", "3rd"],
+          "ordinal_map": {
+            "1": "પ્રથમ", "2": "બીજો", "3": "ત્રીજો", "4": "ચોથો",
+            "5": "પાંચમો"
+          },
+          "ordinal_map_roman": {
+            "1": "pratham", "2": "bijo", "3": "trijo", "4": "cotho",
+            "5": "pancamo"
+          },
+          "dfa_pattern": "^[0-9]+(st|nd|rd|th)$",
+          "rule_type": "ordinal"
+        }
+      }
+    },
+    "FRACTION": {
+      "subcategories": {
+        "normal_fraction": {
+          "description": "Fraction reading in Gujarati",
+          "examples": ["1/2", "3/4"],
+          "fraction_words": {
+            "1/2": "અડધું", "1/3": "એક તૃતીયાંશ", "1/4": "એક ચોથો ભાગ"
+          },
+          "fraction_words_roman": {
+            "1/2": "addhun", "1/3": "ek tritiyansh", "1/4": "ek cotho bhag"
+          },
+          "dfa_pattern": "^[0-9]+/[0-9]+$",
+          "rule_type": "fraction"
+        }
+      }
+    },
+    "CHARACTER_READING": {
+      "subcategories": {
+        "character_reading": {
+          "description": "Spell out each letter in Gujarati context",
+          "examples": ["ABC", "SBI"],
+          "dfa_pattern": "^[A-Za-z]{2,}$",
+          "rule_type": "spell_out"
+        },
+        "acronym": {
+          "description": "Abbreviations in Gujarati context",
+          "examples": ["SBI", "ISRO", "RBI"],
+          "dfa_pattern": "^[A-Z]{2,6}$",
+          "rule_type": "acronym"
+        },
+        "initials_prefix": {
+          "description": "Gujarati honorifics and prefixes",
+          "examples": ["શ્રી", "શ્રીમતી", "ડૉ."],
+          "prefix_map": {
+            "શ્રી": "Shri", "શ્રીમતી": "Shrimati", "ડૉ": "Doctor",
+            "Mr": "Mister", "Mrs": "Missus", "Dr": "Doctor",
+            "Shri": "Shri", "Shrimati": "Shrimati"
+          },
+          "dfa_pattern": "^(Mr|Mrs|Ms|Dr|Shri|Shrimati)\\.?$|^[શ્રીડૉ]+\\.?$",
+          "rule_type": "prefix_expand"
+        }
+      }
+    },
+    "UNIT": {
+      "subcategories": {
+        "size": {
+          "description": "Measurement units in Gujarati",
+          "examples": ["10 foot", "5 kg", "10MB"],
+          "unit_map": {
+            "ft": {"singular": "ફૂટ", "plural": "ફૂટ", "roman": "fut"},
+            "m": {"singular": "મીટર", "plural": "મીટર", "roman": "meter"},
+            "km": {"singular": "કિલોમીટર", "plural": "કિલોમીટર", "roman": "kilometer"},
+            "kg": {"singular": "કિલોગ્રામ", "plural": "કિલોગ્રામ", "roman": "kilogram"},
+            "MB": {"singular": "મેગાબાઇટ", "plural": "મેગાબાઇટ", "roman": "megabyte"}
+          },
+          "dfa_pattern": "^[0-9]+(\\.[0-9]+)?\\s*(ft|m|km|cm|mm|MB|GB|KB|TB)$",
+          "rule_type": "unit_with_plural"
+        },
+        "currency": {
+          "description": "Currency in Gujarati",
+          "examples": ["₹100", "100 rupees"],
+          "currency_map": {
+            "₹": "રૂપિયા", "INR": "ભારતીય રૂપિયા",
+            "Rs": "રૂપિયા", "$": "ડૉલર", "€": "યુરો"
+          },
+          "dfa_pattern": "^[₹][0-9]+(\\.[0-9]{1,2})?$|^[0-9]+(\\.[0-9]{1,2})?\\s*(INR|Rs)$",
+          "rule_type": "currency"
+        }
+      }
+    },
+    "DATE": {
+      "subcategories": {
+        "date": {
+          "description": "Date in Gujarati format",
+          "examples": ["11-07-2025"],
+          "month_map": {
+            "jan": "જાન્યુઆરી", "feb": "ફેબ્રુઆરી", "mar": "માર્ચ",
+            "apr": "એપ્રિલ", "may": "મે", "jun": "જૂન",
+            "jul": "જુલાઈ", "aug": "ઑગસ્ટ", "sep": "સપ્ટેમ્બર",
+            "oct": "ઑક્ટોબર", "nov": "નવેમ્બર", "dec": "ડિસેમ્બર"
+          },
+          "dfa_pattern": "^[0-9]{1,2}[-/][0-9]{1,2}[-/][0-9]{2,4}$",
+          "rule_type": "date"
+        }
+      }
+    },
+    "TIME": {
+      "subcategories": {
+        "usual_time": {
+          "description": "Time in Gujarati",
+          "examples": ["12:30", "3:45 PM"],
+          "time_words": {
+            "AM": "સવારે", "PM": "સાંજે",
+            "morning": "સવારે", "evening": "સાંજે", "night": "રાત્રે"
+          },
+          "dfa_pattern": "^[0-9]{1,2}:[0-9]{2}(:[0-9]{2})?\\s*(AM|PM)?$",
+          "rule_type": "time"
+        }
+      }
+    },
+    "EXTRA_REQUESTS": {
+      "subcategories": {
+        "weekdays": {
+          "description": "Days of week in Gujarati",
+          "day_map": {
+            "Mon": "સોમવાર", "Tue": "મંગળવાર", "Wed": "બુધવાર",
+            "Thu": "ગુરૂવાર", "Fri": "શુક્રવાર", "Sat": "શનિવાર", "Sun": "રવિવાર"
+          },
+          "dfa_pattern": "^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\\.?$",
+          "rule_type": "weekday"
+        },
+        "months": {
+          "description": "Months in Gujarati",
+          "month_map": {
+            "Jan": "જાન્યુઆરી", "Feb": "ફેબ્રુઆરી", "Mar": "માર્ચ",
+            "Apr": "એપ્રિલ", "May": "મે", "Jun": "જૂન",
+            "Jul": "જુલાઈ", "Aug": "ઑગસ્ટ", "Sep": "સપ્ટેમ્બર",
+            "Oct": "ઑક્ટોબર", "Nov": "નવેમ્બર", "Dec": "ડિસેમ્બર"
+          },
+          "dfa_pattern": "^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\.?$",
+          "rule_type": "month"
+        }
+      }
+    }
+  },
+  "ssml_templates": {
+    "default": "<speak>{text}</speak>",
+    "digit_by_digit": "<speak><say-as interpret-as='characters'>{text}</say-as></speak>",
+    "cardinal": "<speak><say-as interpret-as='cardinal'>{text}</say-as></speak>",
+    "ordinal": "<speak><say-as interpret-as='ordinal'>{text}</say-as></speak>",
+    "date": "<speak><say-as interpret-as='date' format='{format}'>{text}</say-as></speak>",
+    "time": "<speak><say-as interpret-as='time' format='{format}'>{text}</say-as></speak>",
+    "spell_out": "<speak><say-as interpret-as='spell-out'>{text}</say-as></speak>"
+  }
+}
